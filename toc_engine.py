@@ -6,63 +6,45 @@ from datetime import datetime
 
 class DFA:
     def __init__(self):
-        self.q0 = "q0"
-        self.q1 = "q1"
-        self.q2 = "q2"
-        self.q3 = "q3"
-        self.q4 = "q4"
-        self.q5 = "q5"
-        self.q6 = "q6"
-        self.q7 = "q7"
-        self.q8 = "q8"
-        self.q9 = "q9"
-        self.current_state = None
+        self.states = {"q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9"}
+        self.start_state = "q0"
+        self.accept_states = {"q9"}
+        self.current_state = self.start_state
+    
+    def transition(self, state, symbol):
+        if state == "q0":
+            return "q1" if symbol == '2' else None
+        elif state == "q1":
+            return "q2" if symbol == '4' else None
+        elif state == "q2":
+            return "q3" if symbol == 'B' else None
+        elif state == "q3":
+            return "q4" if (symbol.isalpha() and symbol.isupper()) else None
+        elif state == "q4":
+            return "q5" if (symbol.isalpha() and symbol.isupper()) else None
+        elif state == "q5":
+            return "q6" if symbol.isdigit() else None
+        elif state == "q6":
+            return "q7" if symbol.isdigit() else None
+        elif state == "q7":
+            return "q8" if symbol.isdigit() else None
+        elif state == "q8":
+            return "q9" if symbol.isdigit() else None
+        else:
+            return None
     
     def validate(self, reg_number):
-        self.current_state = self.q0
-        
         if not isinstance(reg_number, str) or len(reg_number) != 9:
             return False
         
-        chars = list(reg_number)
+        self.current_state = self.start_state
         
-        if chars[0] != '2':
-            return False
-        self.current_state = self.q1
+        for symbol in reg_number:
+            self.current_state = self.transition(self.current_state, symbol)
+            if self.current_state is None:
+                return False
         
-        if chars[1] != '4':
-            return False
-        self.current_state = self.q2
-        
-        if chars[2] != 'B':
-            return False
-        self.current_state = self.q3
-        
-        if not (chars[3].isalpha() and chars[3].isupper()):
-            return False
-        self.current_state = self.q4
-        
-        if not (chars[4].isalpha() and chars[4].isupper()):
-            return False
-        self.current_state = self.q5
-        
-        if not chars[5].isdigit():
-            return False
-        self.current_state = self.q6
-        
-        if not chars[6].isdigit():
-            return False
-        self.current_state = self.q7
-        
-        if not chars[7].isdigit():
-            return False
-        self.current_state = self.q8
-        
-        if not chars[8].isdigit():
-            return False
-        self.current_state = self.q9
-        
-        return self.current_state == self.q9
+        return self.current_state in self.accept_states
 
 
 class StudentDatabase:

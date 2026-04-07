@@ -1,0 +1,79 @@
+𝙌𝙐𝙄𝘾𝙆 𝙎𝙏𝘼𝙍𝙏
+================================================================================
+
+1. RUN THE APP:
+   python att_gui.py
+
+2. VALID REGISTRATION FORMAT:
+   24B[A-Z][A-Z][0-4]
+   
+   Examples:
+   - 24BAA0
+   - 24BCS2
+   - 24BXY4
+
+3. TAB 1 - ADD STUDENT:
+   ✓ Enter: 24BAA0, John Doe
+   ✓ Click: ✅ Add Student
+   ✓ Check: Student list updates
+
+4. TAB 2 - MARK ATTENDANCE:
+   ✓ Set timer: 900 seconds
+   ✓ Enter: 24BAA0
+   ✓ Click: ▶️ Start
+   ✓ Click: ✅ PRESENT (or 🆓 EXCUSE)
+   ✓ See: Today's records update
+
+5. TAB 3 - EXPORT:
+   ✓ Click: 📥 Export to Excel
+   ✓ Choose file location
+   ✓ File saves as .xlsx
+
+
+REGISTRATION FORMAT RULES
+================================================================================
+
+VALID: 24BAA0 ✅
+- Position 0-1: "24" (fixed)
+- Position 2: "B" (fixed)
+- Position 3-4: Any uppercase letters (A-Z)
+- Position 5: Digit 0-4 only
+
+INVALID Examples:
+- 22BAA0 ❌ (year must be 24)
+- 24BAA5 ❌ (last digit must be 0-4)
+- 24baa0 ❌ (lowercase not allowed)
+- 24XAA0 ❌ (branch must be B)
+
+
+DFA VALIDATION (Theory of Computation)
+================================================================================
+
+The system uses a Deterministic Finite Automaton to validate:
+Format: 24B[A-Z][A-Z][0-4]
+
+State machine checks 6 character positions exactly:
+q0 →'2'→ q1 →'4'→ q2 →'B'→ q3 →[A-Z]→ q4 →[A-Z]→ q5 →[0-4]→ q6 ✓
+
+
+KEY FEATURES
+================================================================================
+
+✓ DFA validation (Theory of Computation)
+✓ Timer-based attendance (900 sec default)
+✓ Auto-mark ABSENT when timer expires
+✓ Present / Excuse / Absent buttons
+✓ Real-time UI with dark theme
+✓ CSV data persistence
+✓ Excel export with formatting
+✓ Two-file architecture
+✓ No comments (clean code)
+
+
+FILES
+================================================================================
+
+toc_engine.py    - DFA validator & database
+att_gui.py       - Tkinter GUI (3 tabs)
+SYSTEM_README.txt - Full documentation
+student_data/    - CSV storage folder

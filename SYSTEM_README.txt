@@ -22,11 +22,11 @@ TWO FILE ARCHITECTURE
 REGISTRATION FORMAT (DFA VALIDATION)
 ================================================================================
 
-Format: 24B[A-Z][A-Z][0-4]
-Example: 24BAA0, 24BCS2, 24BZZ4, 24BXY1
+Format: 23B[A-Z][A-Z][0-4]
+Example: 23BAA0, 23BCS2, 23BZZ4, 23BXY1
 
 Components:
-- "24"     : Fixed year prefix
+- "23"     : Fixed year prefix
 - "B"      : Fixed branch (Backend only)
 - [A-Z]    : First letter (uppercase A-Z)
 - [A-Z]    : Second letter (uppercase A-Z)
@@ -35,10 +35,10 @@ Components:
 Total: 6 characters
 
 INVALID Formats:
-- 22BAA0   (year must be 24)
-- 24BAA5   (last digit must be 0-4)
-- 24baa0   (letters must be uppercase)
-- 24MA100  (branch must be B, not M)
+- 24BAA0   (year must be 23)
+- 23BAA5   (last digit must be 0-4)
+- 23baa0   (letters must be uppercase)
+- 23MA100  (branch must be B, not M)
 
 
 ================================================================================
@@ -82,9 +82,9 @@ TAB 3: 📊 EXPORT DATA
 DFA STATE TRANSITIONS
 ================================================================================
 
-Input: 24B[A-Z][A-Z][0-4]
+Input: 23B[A-Z][A-Z][0-4]
 
-q0 --'2'--> q1 --'4'--> q2 --'B'--> q3 --[A-Z]--> q4 --[A-Z]--> q5 --[0-4]--> q6 (Accept)
+q0 --'2'--> q1 --'3'--> q2 --'B'--> q3 --[A-Z]--> q4 --[A-Z]--> q5 --[0-4]--> q6 (Accept)
 
 If any character doesn't match expected symbol → Return False
 

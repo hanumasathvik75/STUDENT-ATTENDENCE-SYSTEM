@@ -5,12 +5,12 @@
    python att_gui.py
 
 2. VALID REGISTRATION FORMAT:
-   24B[A-Z][A-Z][0-4]
+   23B[A-Z][A-Z][0-4]
    
    Examples:
-   - 24BAA0
-   - 24BCS2
-   - 24BXY4
+   - 23BAA0
+   - 23BCS2
+   - 23BXY4
 
 3. TAB 1 - ADD STUDENT:
    ✓ Enter: 24BAA0, John Doe
@@ -33,27 +33,27 @@
 REGISTRATION FORMAT RULES
 ================================================================================
 
-VALID: 24BAA0 ✅
-- Position 0-1: "24" (fixed)
+VALID: 23BAA0 ✅
+- Position 0-1: "23" (fixed)
 - Position 2: "B" (fixed)
 - Position 3-4: Any uppercase letters (A-Z)
 - Position 5: Digit 0-4 only
 
 INVALID Examples:
-- 22BAA0 ❌ (year must be 24)
-- 24BAA5 ❌ (last digit must be 0-4)
-- 24baa0 ❌ (lowercase not allowed)
-- 24XAA0 ❌ (branch must be B)
+- 24BAA0 ❌ (year must be 23)
+- 23BAA5 ❌ (last digit must be 0-4)
+- 23baa0 ❌ (lowercase not allowed)
+- 23XAA0 ❌ (branch must be B)
 
 
 DFA VALIDATION (Theory of Computation)
 ================================================================================
 
 The system uses a Deterministic Finite Automaton to validate:
-Format: 24B[A-Z][A-Z][0-4]
+Format: 23B[A-Z][A-Z][0-4]
 
 State machine checks 6 character positions exactly:
-q0 →'2'→ q1 →'4'→ q2 →'B'→ q3 →[A-Z]→ q4 →[A-Z]→ q5 →[0-4]→ q6 ✓
+q0 →'2'→ q1 →'3'→ q2 →'B'→ q3 →[A-Z]→ q4 →[A-Z]→ q5 →[0-4]→ q6 ✓
 
 
 KEY FEATURES

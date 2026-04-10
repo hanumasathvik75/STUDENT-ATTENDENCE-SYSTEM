@@ -6,9 +6,9 @@ from datetime import datetime
 
 class DFA:
     def __init__(self):
-        self.states = {"q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9"}
+        self.states = {"q0", "q1", "q2", "q3", "q4", "q5", "q6"}
         self.start_state = "q0"
-        self.accept_states = {"q9"}
+        self.accept_states = {"q6"}
         self.current_state = self.start_state
     
     def transition(self, state, symbol):
@@ -23,18 +23,12 @@ class DFA:
         elif state == "q4":
             return "q5" if (symbol.isalpha() and symbol.isupper()) else None
         elif state == "q5":
-            return "q6" if symbol.isdigit() else None
-        elif state == "q6":
-            return "q7" if symbol.isdigit() else None
-        elif state == "q7":
-            return "q8" if symbol.isdigit() else None
-        elif state == "q8":
-            return "q9" if symbol.isdigit() else None
+            return "q6" if symbol in ['0', '1', '2', '3', '4'] else None
         else:
             return None
     
     def validate(self, reg_number):
-        if not isinstance(reg_number, str) or len(reg_number) != 9:
+        if not isinstance(reg_number, str) or len(reg_number) != 6:
             return False
         
         self.current_state = self.start_state
@@ -68,7 +62,7 @@ class StudentDatabase:
     def add_student(self, reg_no, name):
         dfa = DFA()
         if not dfa.validate(reg_no):
-            return False, "Invalid format: 24B[A-Z][A-Z][0-9][0-9][0-9][0-9]"
+            return False, "Invalid format: 24B[A-Z][A-Z][0-4]"
         
         with open(self.students_file, 'r') as f:
             students = csv.reader(f)
